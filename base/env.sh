@@ -1,13 +1,24 @@
 export PBASE=/sandbox
 
 export PATH=$PBASE/bin:/bin:/usr/local/bin:/usr/bin:/bin:$PATH
-export PYTHONPATH=$PBASE/lib/python:$PBASE/lib/pythonbin:$PBASE/lib/python.zip:$PBASE/lib/jumpscale:$PBASE/lib/pythonbin/lib-dynload:$PBASE/bin
-export PYTHONHOME=$PBASE
 
-export LIBRARY_PATH="$PBASE/bin:$PBASE/lib"
-export LD_LIBRARY_PATH="$LIBRARY_PATH"
+if [ $(uname) == 'Darwin' ]; then
+    export HOST='OSX'
+else
+    export HOST=$(hostname)
 
-export LDFLAGS="-L$LIBRARY_PATH/"
+fi
+
+if [ -e $PBASE/bin/python3.6 ]; then
+    export PYTHONPATH=$PBASE/lib/python:$PBASE/lib/pythonbin:$PBASE/lib/python.zip:$PBASE/lib/jumpscale:$PBASE/lib/pythonbin/lib-dynload:$PBASE/bin
+    export LIBRARY_PATH="$PBASE/bin:$PBASE/lib"
+    export LD_LIBRARY_PATH="$LIBRARY_PATH"
+    #export PYTHONHOME=$PBASE
+    export LDFLAGS="-L$LIBRARY_PATH/"
+else
+    export PYTHONPATH=$PBASE/lib/jumpscale
+fi
+
 
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
@@ -30,7 +41,5 @@ export LC_ALL
 LANG="en_US.UTF-8"
 export LANG
 
-export PS1="3BOT: "
-
-cd $PBASE
+export PS1="3BOT:$HOST:\W: "
 
