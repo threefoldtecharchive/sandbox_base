@@ -15,8 +15,10 @@ if [ -e $PBASE/bin/python3.6 ]; then
     export LD_LIBRARY_PATH="$LIBRARY_PATH"
     #export PYTHONHOME=$PBASE
     export LDFLAGS="-L$LIBRARY_PATH/"
+    export PS1="3BOT:$HOST:\W: "
 else
     export PYTHONPATH=$PBASE/lib/jumpscale
+    export PS1="3BOTDEVEL:$HOST:\W: "
 fi
 
 
@@ -41,5 +43,5 @@ export LC_ALL
 LANG="en_US.UTF-8"
 export LANG
 
-export PS1="3BOT:$HOST:\W: "
+
 
