@@ -90,6 +90,7 @@ __all__ = [
     'NewType',
     'no_type_check',
     'no_type_check_decorator',
+    'NoReturn',
     'overload',
     'Text',
     'TYPE_CHECKING',
@@ -2268,7 +2269,7 @@ class IO(Generic[AnyStr]):
     def close(self) -> None:
         pass
 
-    @abstractmethod
+    @abstractproperty
     def closed(self) -> bool:
         pass
 
