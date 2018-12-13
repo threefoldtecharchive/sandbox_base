@@ -38,7 +38,7 @@ except:
 PY2 = sys.version_info[0] == 2
 
 
-__version__ = '0.15.0'
+__version__ = '0.16.0'
 
 
 if PY2:
@@ -979,6 +979,9 @@ class FakeStrictRedis(object):
             except KeyError:
                 continue
         return deleted
+
+    def __delitem__(self, name):
+        return self.delete(name)
 
     @_locked
     def sort(self, name, start=None, num=None, by=None, get=None, desc=False,

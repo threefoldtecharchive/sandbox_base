@@ -2,6 +2,15 @@
  importlib_metadata NEWS
 =========================
 
+0.7 (2018-11-27)
+================
+* Fixed issue where packages with dashes in their names would
+  not be discovered. Closes #21.
+* Distribution lookup is now case-insensitive. Closes #20.
+* Wheel distributions can no longer be discovered by their module
+  name. Like Path distributions, they must be indicated by their
+  distribution package name.
+
 0.6 (2018-10-07)
 ================
 * Removed ``importlib_metadata.distribution`` function. Now
