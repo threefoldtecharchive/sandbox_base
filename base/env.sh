@@ -18,6 +18,7 @@ if [ -e $PBASE/bin/python3.6 ]; then
     export PS1="3BOT:$HOST:\W: "
 else
     export PYTHONPATH=$PBASE/lib/jumpscale
+    unset PYTHONHOME
     export PS1="3BOTDEVEL:$HOST:\W: "
 fi
 
