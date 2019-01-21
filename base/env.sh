@@ -1,5 +1,9 @@
 export PBASE=/sandbox
 
+#if [ -z "INSYSTEM" ]; then
+#    export PATH=$PBASE/bin:/bin:/usr/local/bin:/usr/bin:/bin:$PATH
+#fi
+
 export PATH=$PBASE/bin:/bin:/usr/local/bin:/usr/bin:/bin:$PATH
 
 if [ $(uname) == 'Darwin' ]; then
@@ -44,5 +48,5 @@ export LC_ALL
 LANG="en_US.UTF-8"
 export LANG
 
-
+echo "OK"
 
