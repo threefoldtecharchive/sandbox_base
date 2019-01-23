@@ -1,9 +1,5 @@
 export PBASE=/sandbox
 
-#if [ -z "INSYSTEM" ]; then
-#    export PATH=$PBASE/bin:/bin:/usr/local/bin:/usr/bin:/bin:$PATH
-#fi
-
 export PATH=$PBASE/bin:/bin:/usr/local/bin:/usr/bin:/bin:$PATH
 
 if [ $(uname) == 'Darwin' ]; then
@@ -13,7 +9,7 @@ else
 
 fi
 
-if [ -e $PBASE/bin/python3.6 ] && [ ${INSYSTEM:-1} -ne 1 ]; then
+if [ -e $PBASE/bin/python3.6 ]; then
     export PYTHONPATH=$PBASE/lib/python:$PBASE/lib/pythonbin:$PBASE/lib/python.zip:$PBASE/lib/jumpscale:$PBASE/lib/pythonbin/lib-dynload:$PBASE/bin
     export LIBRARY_PATH="$PBASE/bin:$PBASE/lib"
     export LD_LIBRARY_PATH="$LIBRARY_PATH"
