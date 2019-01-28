@@ -1,13 +1,15 @@
+#!/usr/bin/env bash
+
 export PBASE=/sandbox
 
 export PATH=$PBASE/bin:/bin:/usr/local/bin:/usr/bin:/bin:$PATH
 
-if [ $(uname) == 'Darwin' ]; then
-    export HOST='OSX'
+if [ "$(uname)" = 'Darwin' ]; then
+    HOST='OSX'
 else
-    export HOST=$(hostname)
-
+    HOST="$(hostname)"
 fi
+export HOST="$HOST"
 
 if [ -e $PBASE/bin/python3.6 ]; then
     export PYTHONPATH=$PBASE/lib/python:$PBASE/lib/pythonbin:$PBASE/lib/python.zip:$PBASE/lib/jumpscale:$PBASE/lib/pythonbin/lib-dynload:$PBASE/bin
@@ -45,4 +47,3 @@ LANG="en_US.UTF-8"
 export LANG
 
 echo "OK"
-
