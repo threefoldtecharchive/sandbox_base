@@ -115,7 +115,7 @@ def test_custom_completion_error():
     class A(object): pass
     ip.user_ns['a'] = A()
     
-    @complete_object.when_type(A)
+    @complete_object.register(A)
     def complete_A(a, existing_completions):
         raise TypeError("this should be silenced")
     
@@ -182,6 +182,7 @@ def test_forward_unicode_completion():
     nt.assert_equal(len(matches), 1)
     nt.assert_equal(matches[0], 'Ⅴ')
 
+@nt.nottest # now we have a completion for \jmath
 @dec.knownfailureif(sys.platform == 'win32', 'Fails if there is a C:\\j... path')
 def test_no_ascii_back_completion():
     ip = get_ipython()
@@ -201,7 +202,7 @@ class CompletionSplitterTestCase(unittest.TestCase):
     def test_delim_setting(self):
         self.sp.delims = ' '
         nt.assert_equal(self.sp.delims, ' ')
-        nt.assert_equal(self.sp._delim_expr, '[\ ]')
+        nt.assert_equal(self.sp._delim_expr, r'[\ ]')
 
     def test_spaces(self):
         """Test with only spaces as split chars."""
@@ -1027,3 +1028,23 @@ def test_snake_case_completion():
     _, matches = ip.complete("s_", "print(s_f")
     nt.assert_in('some_three', matches)
     nt.assert_in('some_four', matches)
+
+def test_mix_terms():
+    ip = get_ipython()
+    from textwrap import dedent
+    ip.Completer.use_jedi = False
+    ip.ex(dedent("""
+        class Test:
+            def meth(self, meth_arg1):
+                print("meth")
+
+            def meth_1(self, meth1_arg1, meth1_arg2):
+                print("meth1")
+
+            def meth_2(self, meth2_arg1, meth2_arg2):
+                print("meth2")
+        test = Test()
+        """))
+    _, matches = ip.complete(None, "test.meth(")
+    nt.assert_in('meth_arg1=', matches)
+    nt.assert_not_in('meth2_arg1=', matches)
